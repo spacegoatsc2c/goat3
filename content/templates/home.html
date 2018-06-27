@@ -1,0 +1,10 @@
+<html>
+  <body>
+    <form method="POST">
+      <input id="id_upload" name="upload_text">
+      {% csrf_token %}
+    </form>
+
+    <p>{{ uploaded_item }}</p>
+  </body>
+</html>
