@@ -6,4 +6,11 @@ Feature: Add Content
 
     Given I am on the home page
     When I add a youtube link "https://www.youtube.com/watch?v=7ZN-BUMErZE"
-    Then I will see a link to "https://www.youtube.com/watch?v=7ZN-BUMErZE" on the home page
+    Then I will see "https://www.youtube.com/watch?v=7ZN-BUMErZE"
+
+  Scenario: Add multiple youtube links and see them on home page
+    Given I am on the home page
+    When I add a youtube link "https://www.youtube.com/watch?v=7ZN-BUMErZE"
+      And I add a youtube link "https://www.youtube.com/watch?v=iXBtzGOguCc"
+    Then I will see "https://www.youtube.com/watch?v=7ZN-BUMErZE"
+      And I will see "https://www.youtube.com/watch?v=iXBtzGOguCc"

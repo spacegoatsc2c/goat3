@@ -5,6 +5,10 @@
       {% csrf_token %}
     </form>
 
-    <p>{{ uploaded_item }}</p>
+    <table>
+      {% for uploaded_item in uploaded_items %}
+      <tr><td>{{ uploaded_item.text }}</td></tr>
+      {% endfor %}
+    </table>
   </body>
 </html>

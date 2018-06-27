@@ -12,6 +12,6 @@ def step_impl(context, video_link):
     input_box.send_keys(Keys.ENTER)
     time.sleep(1)
 
-@then(u'I will see a link to "{link_text}" on the home page')
+@then(u'I will see "{link_text}"')
 def step_impl(context, link_text):
     assert f"{link_text}" in context.browser.page_source
