@@ -3,6 +3,7 @@
     <form method="POST">
       <input id="id_upload" name="upload_text">
       {% csrf_token %}
+      {{ error_text }}
     </form>
 
     <table>

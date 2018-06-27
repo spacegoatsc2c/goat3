@@ -9,15 +9,16 @@ Feature: Add Content
     Then I will see "https://www.youtube.com/watch?v=7ZN-BUMErZE"
 
   Scenario: Add multiple youtube links and see them on home page
+
     Given I am on the home page
     When I add a youtube link "https://www.youtube.com/watch?v=7ZN-BUMErZE"
       And I add a youtube link "https://www.youtube.com/watch?v=iXBtzGOguCc"
     Then I will see "https://www.youtube.com/watch?v=7ZN-BUMErZE"
       And I will see "https://www.youtube.com/watch?v=iXBtzGOguCc"
 
-  Scenario: Don't see duplicated content
+  Scenario: Warned when uploading duplicated content
+
     Given I am on the home page
     When I add a youtube link "https://www.youtube.com/watch?v=7ZN-BUMErZE"
       And I add a youtube link "https://www.youtube.com/watch?v=7ZN-BUMErZE"
-    Then I will see "https://www.youtube.com/watch?v=7ZN-BUMErZE"
-      And I will only see one "https://www.youtube.com/watch?v=7ZN-BUMErZE"
+    Then I will see "This has already been uploaded"

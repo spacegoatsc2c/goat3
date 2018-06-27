@@ -43,6 +43,14 @@ class HomeViewTest(TestCase):
         self.assertEqual(1, response.content.decode().count('veryuniquishtext'))
         self.assertTemplateUsed(response, 'home.html')
 
+    def test_error_message_on_duplicates(self):
+        self.client.post('/', data={'upload_text': 'an item'})
+        response = self.client.post('/', data={'upload_text': 'an item'})
+        self.assertIn("This has already been uploaded",
+                response.content.decode()
+        )
+        self.assertTemplateUsed(response, 'home.html')
+
 class ContentModelTest(TestCase):
 
     def test_saving_and_retreiving(self):
