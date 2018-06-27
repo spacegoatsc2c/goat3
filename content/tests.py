@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.urls import resolve
 from django.http import HttpRequest
+from django.core.exceptions import ValidationError
 from unittest import skip
 
 from content.views import home_page
@@ -36,6 +37,12 @@ class HomeViewTest(TestCase):
         self.assertIn('First', response.content.decode())
         self.assertIn('Second', response.content.decode())
 
+    def test_do_not_save_duplicates(self):
+        self.client.post('/', data={'upload_text': 'veryuniquishtext'})
+        response = self.client.post('/', data={'upload_text': 'veryuniquishtext'})
+        self.assertEqual(1, response.content.decode().count('veryuniquishtext'))
+        self.assertTemplateUsed(response, 'home.html')
+
 class ContentModelTest(TestCase):
 
     def test_saving_and_retreiving(self):
@@ -43,8 +50,12 @@ class ContentModelTest(TestCase):
         self.assertEqual(content, Content.objects.first())
         self.assertEqual(content.text, Content.objects.first().text)
 
-    def test_saving_multiple(self):
-        first_content = Content.objects.create(text="First")
         second_content = Content.objects.create(text="Second")
-        self.assertIn(first_content, list(Content.objects.all()))
         self.assertIn(second_content, list(Content.objects.all()))
+
+    def test_duplicates_raise_exception(self):
+        c = Content.objects.create(text="First")
+        with self.assertRaises(ValidationError):
+            c2 = Content(text="First")
+            c2.save()
+            c2.full_clean()

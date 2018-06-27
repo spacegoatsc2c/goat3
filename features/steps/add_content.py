@@ -15,3 +15,7 @@ def step_impl(context, video_link):
 @then(u'I will see "{link_text}"')
 def step_impl(context, link_text):
     assert f"{link_text}" in context.browser.page_source
+
+@then(u'I will only see one "{link_text}"')
+def step_impl(context, link_text):
+    assert context.browser.page_source.count(link_text) == 1
