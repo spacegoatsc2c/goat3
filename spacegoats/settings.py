@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 
+BNET_KEY = os.environ['BNET_KEY']
+BNET_SECRET = os.environ['BNET_SECRET']
+BNET_REDIRECT_URI = os.environ['BNET_REDIRECT']
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -25,7 +29,7 @@ SECRET_KEY = '@4vmjrxgi-w*5+$@5r*=dv(f&1lceli%sow)xl+&+stg^r1)-7'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 TEST_RUNNER = "green.djangorunner.DjangoRunner"
 
@@ -40,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'behave_django',
     'content',
+    'bnet',
 ]
 
 MIDDLEWARE = [

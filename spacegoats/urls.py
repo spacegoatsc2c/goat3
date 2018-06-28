@@ -15,7 +15,10 @@ Including another URLconf
 """
 from django.urls import path
 from content.views import home_page
+from bnet.views import bnet_login, oauth
 
 urlpatterns = [
     path('', home_page, name='home_page'),
+    path('login/', bnet_login, name='bnet_login'),
+    path('oauth/', oauth, name='oauth'),
 ]
