@@ -21,6 +21,11 @@ def oauth(request):
                 if data.get('access_token'):
                     code = data['access_token']
                     bnet = BattleNetOAuth2(region='us', scope='wow.profile', access_token=code)
-                    profile = bnet.get_profile()
-                    return HttpResponse(profile)
+                    status, profile = bnet.get_profile()
+                    if status == 200:
+                        characters = []
+                        for character in profile['characters']:
+                            if character['level'] > 90:
+                                characters.append(character)
+                        return render(request, 'characters.html', {'characters': characters})
     return HttpResponse('error')

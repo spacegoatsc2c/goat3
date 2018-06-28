@@ -1,0 +1,8 @@
+<table>
+{% for character in characters %}
+<tr>
+	<td><img src="http://render-us.worldofwarcraft.com/character/{{character.thumbnail}}"></td>
+	<td><a href="https://worldofwarcraft.com/en-us/character/{{character.realm}}/{{character.name}}">{{character.name}}</a></td>
+</tr>
+{% endfor %}
+</table>
