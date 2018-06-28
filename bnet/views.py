@@ -13,6 +13,14 @@ def bnet_login(request):
     return HttpResponseRedirect(url)
 
 def oauth(request):
-    print(request)
-    # store the code and login() user
-    return HttpResponse('worked?')
+    if request.GET.get('code'):
+        if request.GET.get('state') and request.session.get('state'):
+            if request.GET['state'] == request.session['state']:
+                bnet = BattleNetOAuth2(region='us')
+                data = bnet.retrieve_access_token(request.GET['code'])
+                if data.get('access_token'):
+                    code = data['access_token']
+                    bnet = BattleNetOAuth2(region='us', scope='wow.profile', access_token=code)
+                    profile = bnet.get_profile()
+                    return HttpResponse(profile)
+    return HttpResponse('error')
